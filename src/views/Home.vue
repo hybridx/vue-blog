@@ -1,18 +1,29 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    Hello
+    <Blog />
+    <Modal />
+    <input type="text" ref="name">
+    <button @click="handleClick">Click Me</button>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
+import Blog from '@/components/Blog.vue'
+import Modal from '@/components/Modal.vue'
 
 export default {
   name: 'Home',
   components: {
-    HelloWorld
+    Blog,
+    Modal,
+  },
+  methods: {
+    handleClick() {
+      console.log(this.$refs.name);
+      this.$refs.name.style = 'padding: 2rem';
+    }
   }
 }
 </script>
