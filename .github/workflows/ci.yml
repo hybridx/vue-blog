@@ -17,7 +17,7 @@ jobs:
           node-version: 14.x
       - name: Create env file
         run: |
-          echo VUE_APP_JSON_SERVER=https://raw.githubusercontent.com/hybridx/vue-blog/main/data/db.json >> .env
+          echo VUE_APP_JSON_SERVER=https://jsonplaceholder.typicode.com/blogs >> .env
           cat .env
       - run: npm install 
       - run: npm run build
