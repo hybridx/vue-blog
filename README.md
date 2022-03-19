@@ -17,7 +17,7 @@ npm install
 
 ### Compiles and hot-reloads for development
 ```
-pm run watch:json-server
+npm run watch:json-server
 npm start
 ```
 

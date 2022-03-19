@@ -36,5 +36,41 @@
       "id": "woga1lb"
     }
   ],
-  "highlights": []
+  "highlights": [
+    {
+      "blogId": "2",
+      "highlightedText": "consectetur",
+      "id": 2
+    },
+    {
+      "blogId": "4",
+      "highlightedText": "ipsum",
+      "id": 3
+    },
+    {
+      "blogId": "4",
+      "highlightedText": "adipiscing",
+      "id": 4
+    },
+    {
+      "blogId": "4",
+      "highlightedText": "Lorem",
+      "id": 5
+    },
+    {
+      "blogId": "Qu3_Q4A",
+      "highlightedText": "asd",
+      "id": 6
+    },
+    {
+      "blogId": "2",
+      "highlightedText": "amet",
+      "id": 7
+    },
+    {
+      "blogId": "2",
+      "highlightedText": "dolor",
+      "id": 8
+    }
+  ]
 }

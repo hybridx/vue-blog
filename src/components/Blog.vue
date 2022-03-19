@@ -11,20 +11,24 @@
       {{ blog.title }}
     </h1>
     <input v-if="doEdit" type="text" v-model="blog.title">
-
-    <p v-if="!doEdit" @dblclick.self="highlight" v-html=" blog.post "></p>
+    <p v-if="!doEdit" @dblclick.self="openToolTip" v-html=" blog.post "></p>
     <textarea v-if="doEdit" v-model="blog.post"></textarea>
     <div class="blog-edit-actions">
       <button class="btn green" v-if="doEdit" @click="saveBlog">Save</button>
       <button class="btn secondary" v-if="doEdit" @click="doEdit = !doEdit">Cancel</button>
     </div>
-
+  </div>
+  <div ref="tooltip" v-show="toolTipOpen" @click.self="highlight" class="tooltip">
+    <button @click="highlight"><ion-icon name="bookmark-outline"></ion-icon> Mark </button>
+    <button @click="closeTooltip"><ion-icon name="bookmark-outline"></ion-icon> Cancel </button>
   </div>
 </template>
 
 <script>
 import { useRoute } from 'vue-router';
+import { ref } from 'vue';
 import fetchBlog from '@/service/fetchBlog';
+import addHighlightedText from '@/service/addHighlightedText';
 
 export default {
   name: 'Blog',
@@ -32,20 +36,20 @@ export default {
     const id = useRoute().params.id;
     const { blog, error, load } = fetchBlog(id);
     load();
+    const toolTipOpen = ref(false);
 
     const highlight = () => {
       const highlightedText = window.getSelection().toString();
-      blog.value.post= blog.value.post.replace(highlightedText, `<mark>${highlightedText}</mark>`);
-      console.log(JSON.stringify(highlightedText));
-      fetch('http://localhost:3000/highlights/', {
-        method: 'POST',
-        body: JSON.stringify(highlightedText)
-      })
+      blog.value.post= blog.value.post
+        .replace(highlightedText, `<mark>${highlightedText}</mark>`);
+      addHighlightedText(highlightedText, id);
+      toolTipOpen.value = false;
     }
     return {
       blog,
       error,
-      highlight
+      highlight,
+      toolTipOpen,
     }
   },
   data() {
@@ -77,7 +81,15 @@ export default {
       .then(() => {
         this.doEdit = false;
       });
-    }
+    },
+    openToolTip(e) {
+      this.$refs.tooltip.style.top = e.pageY - 50 + 'px';
+      this.$refs.tooltip.style.left = e.pageX - 50 + 'px';
+      this.toolTipOpen = true;
+    },
+    closeTooltip() {
+      this.toolTipOpen = false;
+    },
   }
 }
 </script>
@@ -89,6 +101,20 @@ export default {
     border: none;
     background: none;
     border-radius: 5px;
+  }
+  .tooltip {
+    position: fixed;
+    overflow: hidden;
+    background: #00000070;
+    border-radius: 5px;
+    button {
+      @include btn;
+      margin: 0;
+      color: #fff;
+      &:hover {
+        border: 1px solid #fff;
+      }
+    }
   }
   input {
     border: 1px solid #ccc;

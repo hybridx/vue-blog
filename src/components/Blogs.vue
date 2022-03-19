@@ -7,15 +7,32 @@
         <input type="text" name="search" v-model="search" placeholder="Search">
       </div>
     </header>
-    <ul class="list-group">
-      <li class="list-group-item" v-for="blog in filteredBlogs" :key="blog">
-        <router-link :to="{ name: 'Blog', params: { id: blog.id } }">
-          <div class="blog-title">
-            {{ blog.title }}
-          </div>
-        </router-link>
-      </li>
-    </ul>
+    <div class="blog-list">
+      <ul class="list-group">
+        <li class="list-group-item" v-for="blog in filteredBlogs" :key="blog">
+          <router-link :to="{ name: 'Blog', params: { id: blog.id } }">
+            <div class="blog-title">
+              {{ blog.title }}
+            </div>
+          </router-link>
+        </li>
+      </ul>
+      <div class="highlights">
+        <div class="highlights-title">
+          <h2>Here are some of your highlights</h2>
+          <h5>Filter by your highlights by clicking on them</h5>
+        </div>
+        <div class="highlight-filter">
+          <span 
+            class="highlight" 
+            v-for="highlight in highlights" 
+            :key="highlight" 
+            @click="filterByHighlights(highlight.highlightedText)"> 
+              {{ highlight.highlightedText }}
+          </span>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -27,20 +44,37 @@ export default {
   setup() {
     const search = ref('');
     const blogs = ref([]);
+    const highlights = ref([
+      {
+        blogId: Number,
+        highlightedText: String,
+        id: String,
+      }
+    ]);
     fetch("http://localhost:3000/blogs")
     .then(res => res.json())
     .then(data => {
       blogs.value = data;
     })
+    const filterByHighlights = (value) => {
+      search.value = value;
+    }
     const filteredBlogs = computed(() => {
       return blogs.value.filter(blog => {
         return blog.post.toLowerCase().includes(search.value.toLowerCase()) || blog.title.toLowerCase().includes(search.value.toLowerCase());
       });
     });
+    fetch("http://localhost:3000/highlights")
+    .then(res => res.json())
+    .then(data => {
+      highlights.value = data;
+    })
     return {
       search,
       blogs,
-      filteredBlogs
+      filteredBlogs,
+      highlights,
+      filterByHighlights,
     }
   },
   data() {
@@ -61,29 +95,49 @@ export default {
      display: grid;
      place-content: center;
    }
-   ul {
-      display: grid;
-      place-content: center;
-      list-style: none;
-      padding: 0;
-      margin: 0;
-      li {
-        margin: 1.5rem;
-        padding: 1rem 2rem;
-        border-radius: 5px;
-        &:hover {
-          box-shadow: 1px 3px 5px #c9c9c9;
-        }
-        a {
-          text-decoration: none;
-          color: rgb(51, 51, 51);
-          .blog-title {
-            font-size: 1.5rem;
-            font-weight: 500;
+   .blog-list {
+     display: flex;
+     justify-content: space-around;
+     .highlights {
+       h5 {
+         font-weight: 300;
+       }
+       .highlight-filter {
+          display: flex;
+          flex-wrap: wrap;
+          width: 80%;
+          .highlight {
+            background-color: #f5f5f5;
+            padding: 0.5rem;
+            margin: 0.5rem;
+            cursor: pointer;
           }
-          .blog-post {
-            font-size: 1rem;
-            font-weight: 300;
+       }
+     }
+      ul {
+        display: grid;
+        place-content: center;
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        li {
+          margin: 1.5rem;
+          padding: 1rem 2rem;
+          border-radius: 5px;
+          &:hover {
+            box-shadow: 1px 3px 5px #c9c9c9;
+          }
+          a {
+            text-decoration: none;
+            color: rgb(51, 51, 51);
+            .blog-title {
+              font-size: 1.5rem;
+              font-weight: 500;
+            }
+            .blog-post {
+              font-size: 1rem;
+              font-weight: 300;
+            }
           }
         }
       }
@@ -104,8 +158,5 @@ export default {
       border: 1px solid #ccc;
       widows: 40%;
     }
- }
- .highlight {
-   background: yellow;
  }
 </style>
