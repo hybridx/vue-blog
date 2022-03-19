@@ -11,7 +11,7 @@ const fetchBlog = (blogId) => {
 
   const load = async () => {
     try {
-      const res = await fetch(`http://localhost:3000/blogs/${blogId}`);
+      const res = await fetch(`${process.env.VUE_APP_JSON_SERVER}/blogs/${blogId}`);
       const data = await res.json();
       blog.value = data;
     } catch(e) {

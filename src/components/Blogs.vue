@@ -51,7 +51,7 @@ export default {
         id: String,
       }
     ]);
-    fetch("http://localhost:3000/blogs")
+    fetch(`${process.env.VUE_APP_JSON_SERVER}/blogs`)
     .then(res => res.json())
     .then(data => {
       blogs.value = data;
@@ -64,7 +64,7 @@ export default {
         return blog.post.toLowerCase().includes(search.value.toLowerCase()) || blog.title.toLowerCase().includes(search.value.toLowerCase());
       });
     });
-    fetch("http://localhost:3000/highlights")
+    fetch(`${process.env.VUE_APP_JSON_SERVER}/highlights`)
     .then(res => res.json())
     .then(data => {
       highlights.value = data;

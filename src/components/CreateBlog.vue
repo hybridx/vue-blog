@@ -22,7 +22,7 @@ export default {
   methods: {
     createBlog() {
       console.log('create blog');
-      fetch("http://localhost:3000/blogs" , {
+      fetch(`${process.env.VUE_APP_JSON_SERVER}/blogs` , {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

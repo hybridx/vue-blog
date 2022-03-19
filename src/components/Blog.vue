@@ -60,7 +60,7 @@ export default {
   },
   methods: {
     deleteBlog() {
-      fetch(`http://localhost:3000/blogs/${this.id}`, {
+      fetch(`${process.env.VUE_APP_JSON_SERVER}/blogs/${this.id}`, {
         method: 'DELETE',
       })
       .then(() => {
@@ -71,7 +71,7 @@ export default {
       this.doEdit = true;
     },
     saveBlog() {
-      fetch(`http://localhost:3000/blogs/${this.id}`, {
+      fetch(`${process.env.VUE_APP_JSON_SERVER}/blogs/${this.id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
