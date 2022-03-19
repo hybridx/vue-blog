@@ -1,0 +1,26 @@
+name: hybridX push process
+on:
+  workflow_dispatch:
+  push:
+    branches: 
+      - main
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use Node.js 16.x
+        env:
+          NODE_ENV: development
+        uses: actions/setup-node@v2
+        with:
+          node-version: 16.x
+      - run: npm install 
+      - run: npm run build
+      - name: Deploy Gamedoora-UI
+        if: success()
+        uses: JamesIves/github-pages-deploy-action@releases/v3
+        with: 
+          ACCESS_TOKEN: ${{ secrets.GAMEDOORA_DEV }}
+          BRANCH: gh-pages
+          FOLDER: dist
