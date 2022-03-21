@@ -2,6 +2,10 @@
 
 ### A project create to learn the basics of vue
 
+
+https://user-images.githubusercontent.com/12994292/159215246-8ea8faf6-478d-4685-adba-3ea95b2bdc7b.mov
+
+
 ### Here are some screenshots
 
 ![alt text](screenshots/home.png "Home Page")
