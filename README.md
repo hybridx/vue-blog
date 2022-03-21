@@ -5,14 +5,15 @@
 https://user-images.githubusercontent.com/12994292/159215246-8ea8faf6-478d-4685-adba-3ea95b2bdc7b.mov
 
 ### Here are some screenshots
+<details>
+<summary>Screenshots</summary>
 
-<summary>
 ![alt text](screenshots/home.png "Home Page")
 ![alt text](screenshots/blogs.png "Blogs Page")
 ![alt text](screenshots/add-blog.png "Add Blogs Page")
 ![alt text](screenshots/edit-blog.png "Edit Blogs Page")
 ![alt text](screenshots/view-blog.png "View Blogs Page")
-</summary>
+<details>
 
 ## Project setup
 ```
