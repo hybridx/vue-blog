@@ -13,7 +13,7 @@ https://user-images.githubusercontent.com/12994292/159215246-8ea8faf6-478d-4685-
 ![alt text](screenshots/add-blog.png "Add Blogs Page")
 ![alt text](screenshots/edit-blog.png "Edit Blogs Page")
 ![alt text](screenshots/view-blog.png "View Blogs Page")
-<details>
+</details>
 
 ## Project setup
 ```
