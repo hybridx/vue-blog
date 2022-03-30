@@ -18,8 +18,9 @@ jobs:
       - name: Create env file
         run: |
           echo VUE_APP_JSON_SERVER=https://jsonplaceholder.typicode.com/blogs >> .env
+          echo ${{ secrets.ENV }} >> .env
           cat .env
-      - run: npm install 
+      - run: npm install
       - run: npm run build
       - name: Deploy Gamedoora-UI
         if: success()
